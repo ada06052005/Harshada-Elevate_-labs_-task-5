@@ -1,0 +1,60 @@
+1. How does a decision tree work?
+A Decision Tree splits the dataset into subsets based on feature values that best separate the target classes.
+It starts at the root node and splits on the feature that gives the best separation.
+It continues splitting until a stopping condition is met (like max depth or pure nodes).
+In our project, the tree learned how combinations of features like age, cp, thalach, etc., relate to heart disease.
+
+2. What is entropy and information gain?
+Entropy measures the disorder or impurity in a dataset (high entropy = more mixed classes).
+Information Gain measures the reduction in entropy after a split.
+ Decision Trees use Information Gain (or Gini) to pick the best feature to split at each node.
+
+3. How is random forest better than a single tree?
+Random Forest:
+Trains multiple trees on different data subsets and averages their predictions.
+Reduces overfitting, increases accuracy, and is more robust.
+In your project, the Random Forest performed better and was more stable than the single Decision Tree.
+
+4. What is overfitting and how do you prevent it?
+Overfitting means your model performs well on training data but poorly on unseen data.
+we prevented it by:
+Limiting tree max_depth
+Using cross-validation
+Switching to Random Forest, which reduces overfitting via bagging
+
+5. What is bagging?
+Bagging (Bootstrap Aggregating):
+Randomly samples the data with replacement to train each model.
+Averages the results to reduce variance and prevent overfitting.
+Random Forest uses bagging to build each desicion tree.
+
+6. How do you visualize a decision tree?
+You used sklearn.tree.plot_tree() in your project:
+python
+Copy
+Edit
+plot_tree(model, feature_names=X.columns, class_names=["0", "1"], filled=True)
+This shows the structure, decision rules, and feature splits in the tree.
+
+7. How do you interpret feature importance?
+Feature importance tells how useful a feature was in reducing impurity across all trees (in Random Forest).
+We plotted it using:
+python
+Copy
+Edit
+pd.Series(rf.feature_importances_, index=X.columns).sort_values().plot(kind='barh')
+It helped you see which features contributed most to predicting heart disease.
+
+8. What are the pros/cons of random forests?
+
+Pros:
+High accuracy
+Handles overfitting well
+Works for both classification and regression
+Handles missing data and non-linear relationships
+
+Cons:
+Slower to train than a single tree
+Less interpretable than a single decision tree
+Requires more memory and compute power
+
